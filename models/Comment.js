@@ -16,7 +16,8 @@ const commentSchema = new mongoose.Schema({
         required: [true, '비밀번호를 입력해주세요']
     },
     curatingId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Curating',
         required: true
     },
     createdAt: {
@@ -24,5 +25,8 @@ const commentSchema = new mongoose.Schema({
         default: Date.now
     }
 });
+
+// 큐레이팅당 하나의 답글만 허용하는 unique 인덱스
+commentSchema.index({ curatingId: 1 }, { unique: true });
 
 module.exports = mongoose.model('Comment', commentSchema);
