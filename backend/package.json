@@ -1,0 +1,26 @@
+{
+  "name": "1-howdoilook-1team",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/1-NbSprint-1/1-HowDoILook-1team#readme",
+  "bugs": {
+    "url": "https://github.com/1-NbSprint-1/1-HowDoILook-1team/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1-NbSprint-1/1-HowDoILook-1team.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
