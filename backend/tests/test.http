@@ -1,0 +1,4 @@
+### 인기 태그 조회
+GET http://localhost:3000/tags/popular-tags
+
+

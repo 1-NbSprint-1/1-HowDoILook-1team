@@ -1,13 +1,16 @@
 import express from "express";
 import cors from "cors";
-import 'dotenv/config'
+import "dotenv/config";
+import connectDB from "./src/config/database.js";
+import tagRoutes from "../backend/src/routes/tagRoute.js";
 
 const app = express();
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+connectDB();
+
+
+app.use("/tags", tagRoutes);
 
 const PORT = process.env.PORT;
 
