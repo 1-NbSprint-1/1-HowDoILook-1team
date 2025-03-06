@@ -21,5 +21,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`서버가 실행되었습니다. PORT: ${PORT}`);
+  console.log(`서버가 실행되었습니다! PORT: ${PORT}`);
 });
