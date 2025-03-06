@@ -1,0 +1,30 @@
+{
+  "name": "1-howdoilook-1team",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon curating/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seung0321/1-HowDoILook-1team.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seung0321/1-HowDoILook-1team/issues"
+  },
+  "homepage": "https://github.com/seung0321/1-HowDoILook-1team#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.12.1",
+    "multer": "^1.4.5-lts.1",
+    "prisma": "^6.4.1",
+    "superstruct": "^2.0.2"
+  },
+  "type": "module"
+}
