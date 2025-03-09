@@ -1,2 +1,48 @@
 ### 인기 태그 조회
-GET http://localhost:3000/tags/popular-tags
+GET http://localhost:3000/api/popular-tags
+
+### 스타일 등록
+POST http://localhost:3000/api/styles
+Content-Type: application/json
+
+{
+  "styleData": {
+    "name": "Casual",
+    "title": "Casual Style",
+    "description": "A comfortable and relaxed style.",
+    "content": "Casual style content",
+    "imageUrl": "http://example.com/image.jpg",
+    "thumbnail": "http://example.com/thumbnail.jpg",
+    "nickname": "casual_nick",
+    "viewCount": 10,
+    "curationCount": 5,
+    "trendy": 3,
+    "personality": 4,
+    "practicality": 5,
+    "costEffectiveness": 4
+  },
+  "tagNames": ["Comfort", "Relaxed2", "Everyday"]
+}
+
+### 스타일 수정
+PUT http://localhost:3000/api/styles/1
+Content-Type: application/json
+
+{
+  "styleData": {
+    "name": "Casual",
+    "title": "Casual Style",
+    "description": "A comfortable and relaxed style.",
+    "content": "Casual style content",
+    "imageUrl": "http://example.com/image.jpg",
+    "thumbnail": "http://example.com/thumbnail.jpg",
+    "nickname": "casual_nick",
+    "viewCount": 10,
+    "curationCount": 5,
+    "trendy": 3,
+    "personality": 4,
+    "practicality": 5,
+    "costEffectiveness": 4
+  },
+  "tagNames": ["Comfort3", "Relaxed2", "Everyday"]
+}
