@@ -1,14 +1,27 @@
-import Style from "../models/style.js";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const getPopularTags = async () => {
-  const popularTags = await Style.aggregate([
-    { $unwind: "$tags" }, // tags 배열을 펼침
-    { $group: { _id: "$tags", count: { $sum: 1 } } }, // 태그별로 그룹화하고 빈도 계산
-    { $sort: { count: -1 } }, // 빈도 기준으로 내림차순 정렬
-    { $limit: 10 }, // 상위 10개의 태그만 가져옴
-  ]);
+  const popularTags = await prisma.tag.findMany({
+    where:{
+      styles : {
+        some : {}
+      }
+    }, orderBy : {
+      styles : {
+        _count : "desc"
+      }
+    },
+    take:10,
+    include : {
+    _count : {
+      select : {styles : true}
+    }
+    }
+  });
 
-  return popularTags;
+  return popularTags.filter(tag => tag._count.styles > 3);
 };
 
 export default { getPopularTags };
