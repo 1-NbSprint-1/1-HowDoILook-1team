@@ -1,20 +1,19 @@
 import express from "express";
-import "dotenv/config";
 import cors from "cors";
-import connectDB from "./config/database.js";
+import * as dotenv from "dotenv";
 import curationRoutes from "./routes/curationRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
-const app = express();
-app.use(cors());
-connectDB();
-app.use(express.json());
+dotenv.config();
 
-app.use("/api", curationRoutes);
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+app.use("/style", curationRoutes);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`서버가 실행되었습니다! PORT: ${PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`서버가 실행 되었습니다. PORT:${process.env.PORT || 3000}`);
 });

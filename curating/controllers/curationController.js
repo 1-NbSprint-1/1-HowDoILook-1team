@@ -1,4 +1,4 @@
-import Curation from "../models/curation.js";
+import prisma from "../config/database.js";
 
 // 큐레이션 조회
 const getCurations = async (req, res, next) => {
@@ -7,15 +7,24 @@ const getCurations = async (req, res, next) => {
 
   if (styleId) query.styleId = styleId;
   if (searchBy && keyword) {
-    query[searchBy] = { $regex: keyword, $options: "i" };
+    query[searchBy] = {
+      contains: keyword, // Prisma의 contains 연산자를 사용
+      mode: "insensitive", // 대소문자 구분없이 검색
+    };
   }
 
   try {
     const skip = (page - 1) * pageSize;
-    const curations = await Curation.find(query)
-      .skip(skip)
-      .limit(Number(pageSize));
-    const totalCurations = await Curation.countDocuments(query);
+
+    const curations = await prisma.curation.findMany({
+      where: query, // Prisma에서는 `where`를 사용하여 조건을 걸어
+      skip: skip, // `skip`을 사용하여 페이지네이션 구현
+      take: Number(pageSize), // `limit` 대신 `take` 사용
+    });
+
+    const totalCurations = await prisma.curation.count({
+      where: query, // 조건에 맞는 총 데이터 수 계산
+    });
 
     res.status(200).json({
       success: true,
@@ -35,7 +44,9 @@ const getCurations = async (req, res, next) => {
 // 큐레이션 등록
 const createCuration = async (req, res, next) => {
   try {
-    const curation = await Curation.create(req.body);
+    const curation = await prisma.curation.create({
+      data: req.body, // Prisma의 `create`를 사용하여 새 데이터 추가
+    });
 
     res.status(201).json({
       success: true,
@@ -52,7 +63,9 @@ const updateCuration = async (req, res, next) => {
   const { passwd, ...updateFields } = req.body;
 
   try {
-    const curation = await Curation.findById(id);
+    const curation = await prisma.curation.findUnique({
+      where: { id: Number(id) }, // `findUnique`로 해당 `id` 조회
+    });
 
     if (!curation) {
       const error = new Error("큐레이션을 찾을 수 없습니다.");
@@ -66,12 +79,14 @@ const updateCuration = async (req, res, next) => {
       return next(error);
     }
 
-    Object.assign(curation, updateFields);
-    await curation.save();
+    const updatedCuration = await prisma.curation.update({
+      where: { id: Number(id) }, // `id`를 기준으로 업데이트
+      data: updateFields, // 수정할 데이터
+    });
 
     res.status(200).json({
       success: true,
-      data: curation,
+      data: updatedCuration,
     });
   } catch (error) {
     next(error);
@@ -83,7 +98,9 @@ const deleteCuration = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const curation = await Curation.findById(id);
+    const curation = await prisma.curation.findUnique({
+      where: { id: Number(id) }, // `id`로 큐레이션 조회
+    });
 
     if (!curation) {
       const error = new Error("큐레이션을 찾을 수 없습니다.");
@@ -91,7 +108,10 @@ const deleteCuration = async (req, res, next) => {
       return next(error);
     }
 
-    await curation.deleteOne();
+    await prisma.curation.delete({
+      where: { id: Number(id) }, // `id`로 큐레이션 삭제
+    });
+
     res
       .status(200)
       .json({ success: true, message: "큐레이션이 삭제되었습니다." });

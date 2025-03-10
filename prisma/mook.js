@@ -1,0 +1,26 @@
+export const CURATION = [
+  {
+    id: 1,
+    nickname: "배고프다",
+    passwd: "qwe1234",
+    content: "세상에서 가장 이쁜 스타일",
+    trendy: 8,
+    personality: 9,
+    practicality: 10,
+    costEffectiveness: 8,
+    createdAt: "2025-01-14T10:00:00Z",
+    updatedAt: "2025-01-15T10:00:00Z",
+  },
+  {
+    id: 2,
+    nickname: "눈온다",
+    passwd: "qwe1234",
+    content: "그냥 쏘쏘",
+    trendy: 7,
+    personality: 7,
+    practicality: 7,
+    costEffectiveness: 7,
+    createdAt: "2025-01-15T10:00:00Z",
+    updatedAt: "2025-01-16T10:00:00Z",
+  },
+];

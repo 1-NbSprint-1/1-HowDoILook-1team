@@ -1,13 +1,13 @@
 ###
-GET http://localhost:3000/api/curations
+GET http://localhost:3000/style/curations
 
 ###
-GET http://localhost:3000/api/curations?searchBy=nickname&keyword=피카츄&page=1&pageSize=10
+GET http://localhost:3000/style/curations?searchBy=nickname&keyword=잠만보&page=1&pageSize=2
 ###
-GET http://localhost:3000/api/curations?&page=1&pageSize=5
+GET http://localhost:3000/style/curations?&page=1&pageSize=5
 
 ###
-POST http://localhost:3000/api/curations
+POST http://localhost:3000/style/curations
 Content-Type: application/json
 
 {
@@ -20,12 +20,12 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/curations/67bfe75ae66c601c2d83adba
+PUT http://localhost:3000/style/curations/2
 Content-Type: application/json
 
 {
   "nickname": "잠만보",
-  "passwd": "qwe12345",
+  "passwd": "qwe1234",
   "content": "가성비가 나쁘지는 않아요",
   "trendy": 7,
   "personality": 7,
@@ -33,4 +33,4 @@ Content-Type: application/json
   "costEffectiveness":7
 }
 ###
-DELETE http://localhost:3000/api/curations/67c7b59c082aecf4ffe3299f
+DELETE http://localhost:3000/style/curations/7
