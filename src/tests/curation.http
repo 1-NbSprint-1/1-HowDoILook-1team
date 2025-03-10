@@ -20,12 +20,12 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/style/curations/2
+PUT http://localhost:3000/style/curations/11
 Content-Type: application/json
 
 {
   "nickname": "잠만보",
-  "passwd": "qwe1234",
+  "passwd": "qwe12345",
   "content": "가성비가 나쁘지는 않아요",
   "trendy": 7,
   "personality": 7,
@@ -33,4 +33,4 @@ Content-Type: application/json
   "costEffectiveness":7
 }
 ###
-DELETE http://localhost:3000/style/curations/7
+DELETE http://localhost:3000/style/curations/11
