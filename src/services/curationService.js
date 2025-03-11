@@ -14,20 +14,18 @@ const getCurations = async ({
   if (searchBy && keyword) {
     query[searchBy] = {
       contains: keyword,
-      mode: "insensitive", // 대소문자 구분없이 검색
+      mode: "insensitive", // 대소문자 구분 없이 검색
     };
   }
 
   const skip = (page - 1) * pageSize;
   const curations = await prisma.curation.findMany({
     where: query,
-    skip: skip,
+    skip,
     take: Number(pageSize),
   });
 
-  const totalCurations = await prisma.curation.count({
-    where: query,
-  });
+  const totalCurations = await prisma.curation.count({ where: query });
 
   return {
     curations,
@@ -42,9 +40,7 @@ const getCurations = async ({
 
 // 큐레이션 등록
 const createCuration = async (curationData) => {
-  return await prisma.curation.create({
-    data: curationData,
-  });
+  return await prisma.curation.create({ data: curationData });
 };
 
 // 큐레이션 수정
@@ -53,9 +49,16 @@ const updateCuration = async (id, updateFields, passwd) => {
     where: { id: Number(id) },
   });
 
-  if (!curation) throw new Error("큐레이션을 찾을 수 없습니다.");
-  if (curation.passwd !== passwd)
-    throw new Error("비밀번호가 일치하지 않습니다.");
+  if (!curation) {
+    const error = new Error("큐레이션을 찾을 수 없습니다.");
+    error.status = 404;
+    throw error;
+  }
+  if (curation.passwd !== passwd) {
+    const error = new Error("비밀번호가 일치하지 않습니다.");
+    error.status = 401;
+    throw error;
+  }
 
   return await prisma.curation.update({
     where: { id: Number(id) },
@@ -69,11 +72,13 @@ const deleteCuration = async (id) => {
     where: { id: Number(id) },
   });
 
-  if (!curation) throw new Error("큐레이션을 찾을 수 없습니다.");
+  if (!curation) {
+    const error = new Error("큐레이션을 찾을 수 없습니다.");
+    error.status = 404;
+    throw error;
+  }
 
-  await prisma.curation.delete({
-    where: { id: Number(id) },
-  });
+  await prisma.curation.delete({ where: { id: Number(id) } });
 
   return { message: "큐레이션이 삭제되었습니다." };
 };
