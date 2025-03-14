@@ -17,9 +17,11 @@ paths:
         - name: searchBy
           in: query
           required: false
-          description: 검색할 필드 선택 (nickname, content)
+          description: 검색할 필드 선택
           schema:
             type: string
+            enum: [nickname, content]
+            example: nickname
         - name: keyword
           in: query
           required: false
@@ -69,6 +71,7 @@ paths:
                         example: 5
         "400":
           description: 잘못된 요청
+
     post:
       summary: 큐레이션 등록
       description: 새로운 큐레이션 생성
@@ -87,6 +90,7 @@ paths:
                 $ref: "#/components/schemas/Curation"
         "400":
           description: 잘못된 요청
+
   /styles/curations/{curationId}:
     put:
       summary: 큐레이션 수정
@@ -117,8 +121,10 @@ paths:
           description: 큐레이션을 찾을 수 없음
         "401":
           description: 비밀번호가 일치하지 않음
+
     delete:
-      summary: 특정 큐레이션 삭제
+      summary: 큐레이션 삭제
+      description: 비밀번호가 일치하는 경우 큐레이션을 삭제할 수 있습니다.
       parameters:
         - name: curationId
           in: path
@@ -126,9 +132,30 @@ paths:
           description: 삭제할 큐레이션 ID
           schema:
             type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CurationDelete"
       responses:
-        "204":
+        "200":
           description: 큐레이션이 성공적으로 삭제됨
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "큐레이션이 삭제되었습니다."
+        "400":
+          description: 잘못된 요청
+        "401":
+          description: 비밀번호가 일치하지 않음
         "404":
           description: 큐레이션을 찾을 수 없음
 
@@ -214,3 +241,11 @@ components:
         costEffectiveness:
           type: integer
           example: 0
+
+    CurationDelete:
+      type: object
+      properties:
+        passwd:
+          type: string
+          format: passwd
+          example: "passwd123"

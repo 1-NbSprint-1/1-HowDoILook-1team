@@ -67,7 +67,7 @@ const updateCuration = async (id, updateFields, passwd) => {
 };
 
 // 큐레이션 삭제 함수
-const deleteCuration = async (id) => {
+const deleteCuration = async (id, passwd) => {
   const curation = await prisma.curation.findUnique({
     where: { id: Number(id) }, // 주어진 id로 큐레이션 조회
   });
@@ -75,6 +75,12 @@ const deleteCuration = async (id) => {
   if (!curation) {
     const error = new Error("큐레이션을 찾을 수 없습니다.");
     error.status = 404; // 큐레이션이 없으면 404 오류
+    throw error;
+  }
+
+  if (curation.passwd !== passwd) {
+    const error = new Error("비밀번호가 일치하지 않습니다.");
+    error.status = 401; // 비밀번호가 다르면 401 오류
     throw error;
   }
 
