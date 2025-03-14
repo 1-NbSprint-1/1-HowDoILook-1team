@@ -2,7 +2,7 @@
 GET http://localhost:3000/style/curations
 
 ###
-GET http://localhost:3000/style/curations?searchBy=nickname&keyword=잠만보&page=1&pageSize=2
+GET http://localhost:3000/style/curations?searchBy=content&keyword=스타일&page=1&pageSize=2
 ###
 GET http://localhost:3000/style/curations?&page=1&pageSize=5
 
@@ -20,11 +20,11 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/style/curations/11
+PUT http://localhost:3000/style/curations/5
 Content-Type: application/json
 
 {
-  "nickname": "잠만보",
+  "nickname": "이제그만",
   "passwd": "qwe12345",
   "content": "가성비가 나쁘지는 않아요",
   "trendy": 7,

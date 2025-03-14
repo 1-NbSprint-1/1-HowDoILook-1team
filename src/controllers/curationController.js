@@ -39,12 +39,12 @@ const createCuration = async (req, res, next) => {
 
 // 큐레이션 수정
 const updateCuration = async (req, res, next) => {
-  const { id } = req.params; // URL 파라미터에서 id 가져오기
+  const { curationId } = req.params; // URL 파라미터에서 id 가져오기
   const { passwd, ...updateFields } = req.body; // 비밀번호와 수정할 필드를 구분하여 받기
 
   try {
     const updatedCuration = await curationService.updateCuration(
-      id,
+      curationId,
       updateFields,
       passwd
     );
@@ -60,10 +60,10 @@ const updateCuration = async (req, res, next) => {
 
 // 큐레이션 삭제
 const deleteCuration = async (req, res, next) => {
-  const { id } = req.params;
+  const { curationId } = req.params;
 
   try {
-    const result = await curationService.deleteCuration(id); // 큐레이션 삭제 처리
+    const result = await curationService.deleteCuration(curationId); // 큐레이션 삭제 처리
 
     res.status(200).json({
       success: true,
