@@ -1,0 +1,251 @@
+openapi: 3.0.0
+info:
+  title: How Do I Look API
+  version: 1.0.0
+  description: 패션 스타일 공유 플랫폼 API 문서
+
+servers:
+  - url: http://localhost:3000
+    description: 개발 서버
+
+paths:
+  /styles/curations:
+    get:
+      summary: 큐레이션 목록 검색
+      description: 큐레이션 닉네임, 내용 검색
+      parameters:
+        - name: searchBy
+          in: query
+          required: false
+          description: 검색할 필드 선택
+          schema:
+            type: string
+            enum: [nickname, content]
+            example: nickname
+        - name: keyword
+          in: query
+          required: false
+          description: 검색 내용
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: 페이지 번호
+          schema:
+            type: integer
+            default: 1
+        - name: pageSize
+          in: query
+          required: false
+          description: 한 페이지에 표시할 항목 수
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: 큐레이션 목록 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  curations:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Curation"
+                  pagination:
+                    type: object
+                    properties:
+                      currentPage:
+                        type: integer
+                        example: 1
+                      pageSize:
+                        type: integer
+                        example: 10
+                      totalItems:
+                        type: integer
+                        example: 50
+                      totalPages:
+                        type: integer
+                        example: 5
+        "400":
+          description: 잘못된 요청
+
+    post:
+      summary: 큐레이션 등록
+      description: 새로운 큐레이션 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CurationCreate"
+      responses:
+        "201":
+          description: 성공적으로 큐레이션이 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Curation"
+        "400":
+          description: 잘못된 요청
+
+  /styles/curations/{curationId}:
+    put:
+      summary: 큐레이션 수정
+      description: 기존 큐레이션 수정, 비밀번호 일치 시 수정 가능
+      parameters:
+        - name: curationId
+          in: path
+          required: true
+          description: 큐레이션 ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CurationUpdate"
+      responses:
+        "200":
+          description: 큐레이션 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Curation"
+        "400":
+          description: 잘못된 요청
+        "404":
+          description: 큐레이션을 찾을 수 없음
+        "401":
+          description: 비밀번호가 일치하지 않음
+
+    delete:
+      summary: 큐레이션 삭제
+      description: 비밀번호가 일치하는 경우 큐레이션을 삭제할 수 있습니다.
+      parameters:
+        - name: curationId
+          in: path
+          required: true
+          description: 삭제할 큐레이션 ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CurationDelete"
+      responses:
+        "200":
+          description: 큐레이션이 성공적으로 삭제됨
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "큐레이션이 삭제되었습니다."
+        "400":
+          description: 잘못된 요청
+        "401":
+          description: 비밀번호가 일치하지 않음
+        "404":
+          description: 큐레이션을 찾을 수 없음
+
+components:
+  schemas:
+    Curation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nickname:
+          type: string
+          example: "닉네임"
+        content:
+          type: string
+          example: "큐레이팅 한줄 평"
+        trendy:
+          type: integer
+          example: 0
+        personality:
+          type: integer
+          example: 0
+        practicality:
+          type: integer
+          example: 0
+        costEffectiveness:
+          type: integer
+          example: 0
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-03-13T12:00:00Z"
+
+    CurationCreate:
+      type: object
+      properties:
+        nickname:
+          type: string
+          example: "닉네임"
+        passwd:
+          type: string
+          format: passwd
+          example: "passwd123"
+        content:
+          type: string
+          example: "큐레이팅 한줄 평"
+        trendy:
+          type: integer
+          example: 0
+        personality:
+          type: integer
+          example: 0
+        practicality:
+          type: integer
+          example: 0
+        costEffectiveness:
+          type: integer
+          example: 0
+
+    CurationUpdate:
+      type: object
+      properties:
+        nickname:
+          type: string
+          example: "닉네임"
+        passwd:
+          type: string
+          format: passwd
+          example: "passwd123"
+        content:
+          type: string
+          example: "큐레이팅 한줄 평"
+        trendy:
+          type: integer
+          example: 0
+        personality:
+          type: integer
+          example: 0
+        practicality:
+          type: integer
+          example: 0
+        costEffectiveness:
+          type: integer
+          example: 0
+
+    CurationDelete:
+      type: object
+      properties:
+        passwd:
+          type: string
+          format: passwd
+          example: "passwd123"
