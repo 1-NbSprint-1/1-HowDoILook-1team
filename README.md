@@ -1,4 +1,4 @@
-## 1팀
+![image](https://github.com/user-attachments/assets/ecd1b181-53f9-42df-8a9f-ea90eaa7374e)## 1팀
 
 https://github.com/1-NbSprint-1
 
@@ -48,7 +48,7 @@ https://github.com/1-NbSprint-1
 - 팀 노션 문서 분류
 </aside>
 
-### **권소담**
+## **권소담**
 
 <aside>
 
@@ -76,23 +76,23 @@ https://github.com/1-NbSprint-1
 
 </aside>
 
-### 김승희
+## 김승희
 
 <aside>
 
- **큐레이팅(Curating) 기능**
+###  **큐레이팅(Curating) 기능**
 
 - Style에 대한 트렌디, 개성, 실용성, 가성비 점수 등록
 - Style에 1:N 관계 적용
 - 닉네임 및 내용으로 검색
 - 수정 시 비밀번호 일치 비교
 
-**문서 작업**
+### **문서 작업**
 
 - 팀 노션 문서 정리
 - 코드 컨벤션 및 프리티어 작성
 
-**통합 코드(dev)** 
+### **통합 코드(dev)** 
 
 - CommonJS → ESM 변경
 - MongoDB → PostgreSQL 변경
@@ -157,8 +157,11 @@ https://one-howdoilook-1team.onrender.com/
 
 https://one-howdoilook-1team.onrender.com/api-docs/
 
-## 프로젝트 회고록
+## 프로젝트 회고록 및 자료
+
+![image](https://github.com/user-attachments/assets/abda39e6-b58d-4198-8b49-6231b919579b)
 
 https://drive.google.com/file/d/1ZDAPduHB-Vlw5dsCfgiox54uS7JpXHAy/view
+https://drive.google.com/file/d/1U_c0exrnCwu-kOeOqzOQj4DIRoaoB_jo/view?usp=sharing
 
 권소담- https://velog.io/@hyperperi/%EC%B4%88%EA%B8%89-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9A%8C%EA%B3%A0
