@@ -158,8 +158,6 @@ https://one-howdoilook-1team.onrender.com/
 https://one-howdoilook-1team.onrender.com/api-docs/
 
 ## 프로젝트 회고록 및 자료
-https://github.com/user-attachments/assets/abda39e6-b58d-4198-8b49-6231b919579b
-
 https://drive.google.com/file/d/1ZDAPduHB-Vlw5dsCfgiox54uS7JpXHAy/view
 https://drive.google.com/file/d/1U_c0exrnCwu-kOeOqzOQj4DIRoaoB_jo/view?usp=sharing
 
